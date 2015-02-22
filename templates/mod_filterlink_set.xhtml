@@ -1,0 +1,10 @@
+<div class="filterlink_current">
+  
+  <ul class="filterlinks">
+    <?php foreach($this->links as $lnk): ?>
+      <li class="filterlink"><a href="<?php print $lnk['href']; ?>"><?php print $lnk['title']; ?></a></li>
+    <?php endforeach; ?>
+    
+    <li class="filterlink_all"><a href="<?php print $this->baseurl; ?>"><?php print $this->removeAll; ?></a></li>
+  </ul>
+</div>

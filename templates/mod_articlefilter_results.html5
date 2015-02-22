@@ -1,0 +1,55 @@
+<!-- indexer::stop -->
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+  <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  <?php endif; ?>
+
+  <?php if($this->no_filter): ?>
+    <div class="no_filter"><?php print $GLOBALS['TL_LANG']['articlefilter']['no_filter']; ?></div>
+  <?php else: ?>
+  <?php if($this->resultCount == 0): ?>
+
+    <div class="searchFilters">
+      <div class="selectedFilterHeadline"><?php print $this->selectedFilterHeadline; ?></div>
+    <?php if($this->showFilter): ?>
+      <ul>
+        <?php if(is_array($this->selectedFilter)): foreach($this->selectedFilter as $f): ?>
+          <?php print '<li>'. $f['group'] .': '. $f['criteria'] .'</li>'; ?>
+        <?php endforeach; endif; ?>
+      </ul>
+    <?php endif; ?>
+    </div>
+
+  <?php else: ?>
+
+    <div class="searchFilters">
+      <div class="selectedFilterHeadline"><?php print $this->selectedFilterHeadline; ?></div>
+    <?php if($this->showFilter): ?>
+      <ul>
+        <?php foreach($this->selectedFilter as $f): ?>
+          <?php print '<li>'. $f['group'] .': '. $f['criteria'] .'</li>'; ?>
+        <?php endforeach; ?>
+      </ul>
+    <?php endif; ?>
+    </div>
+
+    <ul>
+      <?php foreach($this->results as $item): ?>
+        <li>
+          <a href="<?php print $item['href']; ?>"><?php print $item['title']; ?></a>
+          <div class="articleTeaser">
+            <?php if($item['image']): ?>
+              <div class="articleImage"><?php print $item['image']; ?></div>
+            <?php endif; ?>
+            <?php print $item['teaser']; ?>
+          </div>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endif; endif; ?>
+</div>
+    <?php if($this->pagination): ?>
+      <div class="pagination"><?php print $this->pagination; ?></div>
+    <?php endif; ?>
+
+<!-- indexer::continue -->
