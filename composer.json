@@ -1,0 +1,45 @@
+{
+    "name": "martin-kozianka/contao-articlefilter",
+    "description": "Extension for contao",
+    "keywords": [
+        "contao",
+        "articlefilter",
+        "artikel",
+        "filter"
+    ],
+    "type": "contao-module",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Martin Kozianka",
+            "email": "martin@kozianka.de",
+            "homepage": "http://kozianka.de",
+            "role": "Developer"
+        }
+    ],  
+    "support": {
+        "email": "martin@kozianka.de",
+        "issues": "https://github.com/kozi/contao-articlefilter/issues",
+        "irc": "irc://irc.freenode.org/contao.dev",
+        "source": "https://github.com/kozi/contao-articlefilter"
+    },
+    "require": {
+        "contao-community-alliance/composer-plugin": "~2",
+        "contao/core": ">=3.5",
+        "php": ">=5.5"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-0": {
+            "ContaoArticlefilter": "src/"
+        }
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "contao": "system/modules/articlefilter"
+            }
+        }
+    }
+}

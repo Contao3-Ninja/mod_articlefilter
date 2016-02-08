@@ -1,0 +1,9 @@
+<div class="formElem">
+  <label for="ctrl_articlefilter_<?php print $this->name; ?>"><?php print $this->title; ?></label>
+  <select size="3" multiple="true" name="articlefilter_filter[<?php print $this->name; ?>][]" id="ctrl_articlefilter_<?php print $this->name; ?>">
+    <option value="">---</option>
+    <?php foreach($this->items as $id => $c): ?>
+      <option value="<?php print $id; ?>"<?php print $id == $this->selected ? ' selected="selected"' : ''; ?>><?php print $c; ?></option>
+    <?php endforeach; ?>
+  </select>
+</div>

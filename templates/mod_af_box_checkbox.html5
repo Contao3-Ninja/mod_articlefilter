@@ -1,8 +1,0 @@
-<div class="formElem afb_<?php print $this->id; ?>">
-  <div id="af_<?php print $this->name; ?>"><?php print $this->title; ?></div>
-  <?php foreach($this->items as $id => $c): ?>
-    <div class="afbox_single">
-      <input id="ctrl_af_<?php print $this->name; ?>_<?php print $id; ?>" type="checkbox" name="af_filter[<?php print $this->name; ?>][]" value="<?php print $id; ?>"/> <label for="ctrl_af_<?php print $this->name; ?>_<?php print $id; ?>"><?php print $c; ?></label>
-    </div>
-  <?php endforeach; ?>
-</div>

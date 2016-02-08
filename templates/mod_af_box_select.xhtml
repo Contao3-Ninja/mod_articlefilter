@@ -1,9 +1,0 @@
-<div class="formElem afb_<?php print $this->id; ?>">
-  <label id="af_<?php print $this->name; ?>" for="ctrl_af_<?php print $this->name; ?>"><?php print $this->title; ?></label>
-  <select name="af_filter[<?php print $this->name; ?>]" id="ctrl_af_<?php print $this->name; ?>">
-    <option value="">---</option>
-    <?php foreach($this->items as $id => $c): ?>
-      <option value="<?php print $id; ?>"<?php print $id == $this->selected ? ' selected="selected"' : ''; ?>><?php print $c; ?></option>
-    <?php endforeach; ?>
-  </select>
-</div>
