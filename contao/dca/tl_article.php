@@ -1,4 +1,4 @@
-<?
+<?php
 
 $GLOBALS['TL_DCA']['tl_article']['fields']['articlefilter_enable'] = [
     'label'               => &$GLOBALS['TL_LANG']['tl_article']['articlefilter_enable'],
