@@ -158,12 +158,14 @@ class Articlefilter extends \Controller
         $arrEntry         = $row;
         $arrEntry['href'] = $this->generatePageLink($row['pid'], $row['alias']);
 
-        if ($row['addImage'] && $row['singleSRC'])
+        if ($row['addImage'] && strlen($row['singleSRC']) > 0)
         {
-            $arrEntry['image'] = 'TODO TODO TODO';
+            $objFile = \FilesModel::findByUuid($row['singleSRC']);
+            if ($objFile !== null)
+            {
+                $row['imagePath'] = $objFile->path;
+            }
         }
-
-
         return $arrEntry;
     }
 
