@@ -21,7 +21,7 @@ class ModuleFilterLinks extends \Module
             return $objTemplate->parse();
         }
         $this->arrJump   = $this->Database->prepare('SELECT id, alias from tl_page where id=?')->execute($this->jumpTo)->fetchAssoc();
-        $this->objFilter = new ArticleFilter();
+        $this->objFilter = new Articlefilter();
 
         return parent::generate();
     }

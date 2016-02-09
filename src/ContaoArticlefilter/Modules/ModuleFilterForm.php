@@ -23,7 +23,7 @@ class ModuleFilterForm extends \Module
         if (\Input::get('isAjax') == '1')
         {
             $filter    = \Input::get('articlefilter_filter');
-            $objFilter = new ArticleFilter($this->getRootIdFromUrl());
+            $objFilter = new Articlefilter($this->getRootIdFromUrl());
 
             $objFilter->selectedFilter = $filter;
             $objFilter->afstype        = \Input::get('afstype');

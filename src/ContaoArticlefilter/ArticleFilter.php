@@ -3,10 +3,10 @@
 namespace ContaoArticlefilter;
 
 /**
- * Class ArticleFilter based on version of Stefan Gandlau <stefan@gandlau.net>
+ * Class Articlefilter based on version of Stefan Gandlau <stefan@gandlau.net>
  *
  */
-class ArticleFilter extends \Controller
+class Articlefilter extends \Controller
 {
 
     /* ajax or form-request */

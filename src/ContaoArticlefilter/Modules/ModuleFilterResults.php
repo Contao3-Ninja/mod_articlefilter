@@ -28,7 +28,7 @@ class ModuleFilterResults extends \Module
         {
             return;
         }
-        $objFilter                 = new ArticleFilter($this->getRootIdFromUrl());
+        $objFilter                 = new Articlefilter($this->getRootIdFromUrl());
         $objFilter->selectedFilter = \Input::get('articlefilter_filter');
         $objFilter->afstype        = \Input::get('afstype');
         $objFilter->sorting        = $this->articlefilter_sorting;
