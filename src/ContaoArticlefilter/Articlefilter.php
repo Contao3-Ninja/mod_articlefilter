@@ -163,7 +163,7 @@ class Articlefilter extends \Controller
             $objFile = \FilesModel::findByUuid($row['singleSRC']);
             if ($objFile !== null)
             {
-                $row['imagePath'] = $objFile->path;
+                $arrEntry['imagePath'] = $objFile->path;
             }
         }
         return $arrEntry;
