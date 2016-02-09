@@ -1,6 +1,6 @@
 <?php
 
-namespace ContaoArticlefilter;
+namespace ContaoArticlefilter\Modules;
 
 /**
  * Class ModuleFilterResults based on version of Stefan Gandlau <stefan@gandlau.net>
