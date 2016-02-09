@@ -36,24 +36,18 @@ $GLOBALS['TL_DCA']['tl_articlefilter_groups'] = [
 				'href'                => 'table=tl_articlefilter_criteria',
 				'icon'                => 'edit.gif'
 			],
-			'copy' => [
-				'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['copy'],
-				'href'                => 'act=paste&amp;mode=copy',
-				'icon'                => 'copy.gif',
-				'attributes'          => 'onclick="Backend.getScrollOffset();"',
-			],
-			'cut' => [
-				'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['cut'],
-				'href'                => 'act=paste&amp;mode=cut',
-				'icon'                => 'cut.gif',
-				'attributes'          => 'onclick="Backend.getScrollOffset();"',
-		  	],
 			'delete' => [
 				'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['delete'],
 				'href'                => 'act=delete',
 				'icon'                => 'delete.gif',
 				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
-			]
+			],
+			'toggle' => [
+				'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['toggle'],
+				'icon'                => 'visible.gif',
+				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+				'button_callback'     => ['tl_articlefilter_groups', 'toggleIcon']
+			],
 		]
 	],
 
@@ -90,3 +84,82 @@ $GLOBALS['TL_DCA']['tl_articlefilter_groups'] = [
 		]
 	]
 ];
+
+class tl_articlefilter_groups extends Backend
+{
+    public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
+    {
+        if (strlen(Input::get('tid')))
+        {
+            $this->toggleVisibility(Input::get('tid'), (Input::get('state') == 1), (@func_get_arg(12) ?: null));
+            $this->redirect($this->getReferer());
+        }
+
+        // Check permissions AFTER checking the tid, so hacking attempts are logged
+        if (!$this->User->hasAccess('tl_articlefilter_groups::disable', 'alexf'))
+        {
+            return '';
+        }
+
+        $href .= '&amp;tid='.$row['id'].'&amp;state='.$row['disable'];
+
+        if ($row['disable'])
+        {
+            $icon = 'invisible.gif';
+        }
+
+        return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label, 'data-state="' . ($row['disable'] ? 0 : 1) . '"').'</a> ';
+    }
+
+    /**
+     * Disable/enable
+     *
+     * @param integer       $intId
+     * @param boolean       $blnVisible
+     * @param DataContainer $dc
+     */
+    public function toggleVisibility($intId, $blnVisible, DataContainer $dc=null)
+    {
+        // Set the ID and action
+        Input::setGet('id', $intId);
+        Input::setGet('act', 'toggle');
+
+        if ($dc)
+        {
+            $dc->id = $intId; // see #8043
+        }
+
+        // Check the field access
+        if (!$this->User->hasAccess('tl_articlefilter_groups::disable', 'alexf'))
+        {
+            $this->log('Not enough permissions to activate/deactivate articlefilter group ID "'.$intId.'"', __METHOD__, TL_ERROR);
+            $this->redirect('contao/main.php?act=error');
+        }
+
+        // Trigger the save_callback
+        if (is_array($GLOBALS['TL_DCA']['tl_articlefilter_groups']['fields']['disable']['save_callback']))
+        {
+            foreach ($GLOBALS['TL_DCA']['tl_articlefilter_groups']['fields']['disable']['save_callback'] as $callback)
+            {
+                if (is_array($callback))
+                {
+                    $this->import($callback[0]);
+                    $blnVisible = $this->{$callback[0]}->{$callback[1]}($blnVisible, ($dc ?: $this));
+                }
+                elseif (is_callable($callback))
+                {
+                    $blnVisible = $callback($blnVisible, ($dc ?: $this));
+                }
+            }
+        }
+
+        $time = time();
+
+        // Update the database
+        $this->Database
+            ->prepare("UPDATE tl_articlefilter_groups SET tstamp=$time, published='" . ($blnVisible ? '' : 1) . "' WHERE id=?")
+            ->execute($intId);
+
+    }
+
+}
