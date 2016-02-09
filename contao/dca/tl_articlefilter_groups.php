@@ -2,46 +2,35 @@
 
 $GLOBALS['TL_DCA']['tl_articlefilter_groups'] = [
 
-	// Config
-	'config' => [
-		'dataContainer'               => 'Table',
-		'ctable'                      => ['tl_articlefilter_criteria'],
-		'switchToEdit'                => true,
-		'sql'                         => ['keys' => ['id'  => 'primary']]
-	],
+    // Config
+    'config' => [
+        'dataContainer'               => 'Table',
+        'ctable'                      => ['tl_articlefilter_criteria'],
+        'switchToEdit'                => true,
+        'sql'                         => ['keys' => ['id'  => 'primary']]
+    ],
 
-	// List
-	'list' => [
-		'sorting' => [
-			'mode'                    => 1,
-			'fields'                  => ['title'],
-		  	'flag'                    => 11,
-			'panelLayout'             => 'search,limit'
-		],
-		'label' => [
-			'fields'                  => ['title'],
-			'format'                  => '%s'
-		],
-		'global_operations' => [
-			'all' => [
-				'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
-				'href'                => 'act=select',
-				'class'               => 'header_edit_all',
-				'attributes'          => 'onclick="Backend.getScrollOffset();"'
-			]
-		],
-		'operations' => [
-            'toggle' => [
-                'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['toggle'],
-                'icon'                => 'visible.gif',
-                'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback'     => ['tl_articlefilter_groups', 'toggleIcon']
-            ],
-			'edit' => [
-				'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['edit'],
-				'href'                => 'table=tl_articlefilter_criteria',
-				'icon'                => 'edit.gif'
-			],
+    // List
+    'list' => [
+        'sorting' => [
+            'mode'                    => 1,
+            'fields'                  => ['title'],
+            'flag'                    => 11,
+            'panelLayout'             => 'search,limit'
+        ],
+        'label' => [
+            'fields'                  => ['title'],
+            'format'                  => '%s'
+        ],
+        'global_operations' => [
+            'all' => [
+                'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
+                'href'                => 'act=select',
+                'class'               => 'header_edit_all',
+                'attributes'          => 'onclick="Backend.getScrollOffset();"'
+            ]
+        ],
+        'operations' => [
             'editheader' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['editheader'],
@@ -49,51 +38,68 @@ $GLOBALS['TL_DCA']['tl_articlefilter_groups'] = [
                 'icon'                => 'header.gif',
                 'button_callback'     => array('tl_articlefilter_groups', 'editHeader')
             ),
-			'delete' => [
-				'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['delete'],
-				'href'                => 'act=delete',
-				'icon'                => 'delete.gif',
-				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
-			],
-		]
-	],
+            'edit' => [
+                'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['edit'],
+                'href'                => 'table=tl_articlefilter_criteria',
+                'icon'                => 'edit.gif'
+            ],
+            'toggle' => [
+                'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['toggle'],
+                'icon'                => 'visible.gif',
+                'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+                'button_callback'     => ['tl_articlefilter_groups', 'toggleIcon']
+            ],
+            'delete' => [
+                'label'               => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['delete'],
+                'href'                => 'act=delete',
+                'icon'                => 'delete.gif',
+                'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+            ],
+        ]
+    ],
 
-	// Palettes
-	'palettes' => ['default' => 'title,template;published'],
+    // Palettes
+    'palettes' => ['default' => 'title,template;published'],
 
-	// Fields
-	'fields' => [
+    // Fields
+    'fields' => [
 
-		'id'      => ['sql' => "int(10) unsigned NOT NULL auto_increment"],
-		'pid'     => ['sql' => "int(10) unsigned NOT NULL default '0'"],
-		'tstamp'  => ['sql' => "int(10) unsigned NOT NULL default '0'"],
-		'sorting' => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'id'      => ['sql' => "int(10) unsigned NOT NULL auto_increment"],
+        'pid'     => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'tstamp'  => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'sorting' => ['sql' => "int(10) unsigned NOT NULL default '0'"],
 
-		'title' => [
-			'label'                   => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['title'],
-			'inputType'               => 'text',
-			'exclude'                 => true,
-			'search'                  => true,
-			'eval'                    => ['mandatory'=>true],
-			'sql'                     => "varchar(255) NOT NULL default ''"
-		],
-		'template' => [
-			'label'                   => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['template'],
-			'inputType'               => 'select',
-			'options'                 => $this->getTemplateGroup('mod_articlefilter_box_'),
-			'sql'                     => "varchar(255) NOT NULL default ''"
-		],
-		'published' => [
-			'label'                   => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['published'],
-			'inputType'               => 'checkbox',
-			'eval'                    => ['doNotCopy' => true],
-			'sql'                     => "char(1) NOT NULL default ''"
-		]
-	]
+        'title' => [
+            'label'                   => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['title'],
+            'inputType'               => 'text',
+            'exclude'                 => true,
+            'search'                  => true,
+            'eval'                    => ['mandatory'=>true],
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ],
+        'template' => [
+            'label'                   => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['template'],
+            'inputType'               => 'select',
+            'options'                 => $this->getTemplateGroup('mod_articlefilter_box_'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ],
+        'published' => [
+            'label'                   => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['published'],
+            'inputType'               => 'checkbox',
+            'eval'                    => ['doNotCopy' => true],
+            'sql'                     => "char(1) NOT NULL default ''"
+        ]
+    ]
 ];
 
 class tl_articlefilter_groups extends Backend
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->import('BackendUser', 'User');
+    }
+
     public function editHeader($row, $href, $label, $title, $icon, $attributes)
     {
         if (!$this->User->canEditFieldsOf('tl_articlefilter_groups'))
@@ -112,19 +118,19 @@ class tl_articlefilter_groups extends Backend
         }
 
         // Check permissions AFTER checking the tid, so hacking attempts are logged
-        if (!$this->User->hasAccess('tl_articlefilter_groups::disable', 'alexf'))
+        if (!$this->User->hasAccess('tl_articlefilter_groups::published', 'alexf'))
         {
             return '';
         }
 
-        $href .= '&amp;tid='.$row['id'].'&amp;state='.$row['disable'];
+        $href .= '&amp;tid='.$row['id'].'&amp;state='.($row['published'] ? '' : 1);
 
-        if ($row['disable'])
+        if (!$row['published'])
         {
             $icon = 'invisible.gif';
         }
 
-        return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label, 'data-state="' . ($row['disable'] ? 0 : 1) . '"').'</a> ';
+        return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"').'</a> ';
     }
 
     /**
@@ -146,16 +152,16 @@ class tl_articlefilter_groups extends Backend
         }
 
         // Check the field access
-        if (!$this->User->hasAccess('tl_articlefilter_groups::disable', 'alexf'))
+        if (!$this->User->hasAccess('tl_articlefilter_groups::published', 'alexf'))
         {
-            $this->log('Not enough permissions to activate/deactivate articlefilter group ID "'.$intId.'"', __METHOD__, TL_ERROR);
+            $this->log('Not enough permissions to publish/unpublish articlefilter group ID "'.$intId.'"', __METHOD__, TL_ERROR);
             $this->redirect('contao/main.php?act=error');
         }
 
         // Trigger the save_callback
-        if (is_array($GLOBALS['TL_DCA']['tl_articlefilter_groups']['fields']['disable']['save_callback']))
+        if (is_array($GLOBALS['TL_DCA']['tl_articlefilter_groups']['fields']['published']['save_callback']))
         {
-            foreach ($GLOBALS['TL_DCA']['tl_articlefilter_groups']['fields']['disable']['save_callback'] as $callback)
+            foreach ($GLOBALS['TL_DCA']['tl_articlefilter_groups']['fields']['published']['save_callback'] as $callback)
             {
                 if (is_array($callback))
                 {
@@ -173,7 +179,7 @@ class tl_articlefilter_groups extends Backend
 
         // Update the database
         $this->Database
-            ->prepare("UPDATE tl_articlefilter_groups SET tstamp=$time, published='" . ($blnVisible ? '' : 1) . "' WHERE id=?")
+            ->prepare("UPDATE tl_articlefilter_groups SET tstamp=$time, published='" . ($blnVisible ? 1 : '') . "' WHERE id=?")
             ->execute($intId);
 
     }
