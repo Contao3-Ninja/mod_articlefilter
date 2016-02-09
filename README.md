@@ -10,4 +10,4 @@ Die ist im ER2 zu finden [https://contao.org/de/extension-list/view/mod_articlef
 
 ## Anpassungen
 
-Hier wurden Bugs behoben sowie Anpassungen speziell für den Einsatz auf einer meiner Seiten durchgeführt.
+Ich habe die Erweiterung soweit angepasst, dass sie unter Contao 3.5 lauffähig ist.
