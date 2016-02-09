@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ContaoArticlefilter;
 
 /**
@@ -15,9 +14,9 @@ class ModuleArticleFilter extends \Module
     {
         if (TL_MODE == 'BE')
         {
-            $t = new \BackendTemplate('be_wildcard');
-            $t->wildcard = '### ArticleFilter ###';
-            return $t->parse();
+            $objTemplate           = new \BackendTemplate('be_wildcard');
+            $objTemplate->wildcard = '### ArticleFilter ###';
+            return $objTemplate->parse();
         }
 
         /* ajax queries */

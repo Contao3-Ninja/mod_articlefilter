@@ -10,4 +10,3 @@ array_insert($GLOBALS['BE_MOD']['content'], 1, [
 $GLOBALS['FE_MOD']['application']['articlefilter']            = '\ContaoArticleFilter\ModuleArticleFilter';
 $GLOBALS['FE_MOD']['application']['articlefilter_links']      = '\ContaoArticleFilter\ModuleFilterLinks';
 $GLOBALS['FE_MOD']['application']['articlefilter_results']    = '\ContaoArticleFilter\ModuleFilterResults';
-

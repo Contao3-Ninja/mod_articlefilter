@@ -9,16 +9,16 @@ namespace ContaoArticlefilter;
 class ModuleFilterLinks extends \Module
 {
     protected $strTemplate = 'mod_articlefilter_links';
+    protected $arrJump     = [];
     protected $objFilter;
-    protected $arrJump = array();
 
     public function generate()
     {
         if (TL_MODE == 'BE')
         {
-            $t = new \BackendTemplate('be_wildcard');
-            $t->wildcard = '### Article Filter (Links) ###';
-            return $t->parse();
+            $objTemplate           = new \BackendTemplate('be_wildcard');
+            $objTemplate->wildcard = '### Article Filter (Links) ###';
+            return $objTemplate->parse();
         }
         $this->arrJump   = $this->Database->prepare('SELECT id, alias from tl_page where id=?')->execute($this->jumpTo)->fetchAssoc();
         $this->objFilter = new ArticleFilter();
