@@ -2,7 +2,7 @@
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['articlefilter_groups'] = [
     'label'      => &$GLOBALS['TL_LANG']['tl_module']['articlefilter_groups'],
-    'inputType'  => 'checkbox',
+    'inputType'  => 'checkboxWizard',
     'foreignKey' => 'tl_articlefilter_groups.title',
     'eval'       => ['mandatory' => true, 'multiple' => true],
     'sql'        => "text NULL"
