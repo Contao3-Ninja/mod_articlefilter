@@ -29,7 +29,7 @@ class ModuleFilterLinks extends \Module
     protected function compile()
     {
         /* get current filter */
-        $arrFilter = \Input::get('articlefilter_filter');
+        $arrFilter      = \Input::get('articlefilter_filter');
         $searchCriteria = [];
         if (is_array($arrFilter))
         {

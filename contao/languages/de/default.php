@@ -11,5 +11,3 @@ $GLOBALS['TL_LANG']['articlefilter'] = [
     'selectedFilter'         => 'Ihre Auswahl',
     'removeAll'              => 'alle entfernen'
 ];
-
-$GLOBALS['TL_LANG']['CTE']['mod_articlefilter_selected'] = ['Artikelfilter auswahl', 'Zeigt die ausgewählten Filter-Kriterien des Artikels als Content-Element an.'];
