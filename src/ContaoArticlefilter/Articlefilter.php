@@ -155,9 +155,12 @@ class Articlefilter extends \Controller
 
     private function createEntry($row)
     {
-        $arrEntry         = $row;
-        $arrEntry['href'] = $this->generatePageLink($row['pid'], $row['alias']);
-
+        $arrEntry = $row;
+        if (($objArticle = \ArticleModel::findByIdOrAlias($row['id'])) !== null && ($objPid = $objArticle->getRelated('pid')) !== null)
+        {
+            $arrEntry['href'] = $this->generateFrontendUrl($objPid->row(), '/articles/'.((!\Config::get('disableAlias') && strlen($row['alias'])) ? $row['alias'] : $row['id']));
+        }
+        
         if ($row['addImage'] === '1' && strlen($row['singleSRC']) > 0)
         {
             $objFile = \FilesModel::findByUuid($row['singleSRC']);
@@ -197,12 +200,6 @@ class Articlefilter extends \Controller
             $arrAllCriteria[$res->id] = $res->title;
         }
         return $arrAllCriteria;
-    }
-
-    protected function generatePageLink($pageid, $alias)
-    {
-        $res = \Database::getInstance()->prepare('SELECT id, alias from tl_page where id=?')->execute($pageid);
-        return ($this->generateFrontendUrl($res->fetchAssoc()).'?articles='.$alias);
     }
 
     public function getPageIdsByPid($pid)
@@ -279,23 +276,23 @@ class Articlefilter extends \Controller
                     $this->resultCount = 0;
                 }
             }
-            break;
+                break;
 
             case 'afstype':
                 $this->afstype = $value;
-            break;
+                break;
 
             case 'sorting':
                 $this->sorting = $value;
-            break;
+                break;
 
             case 'showall':
                 $this->showAll = $value;
-            break;
+                break;
 
             case 'groupbypage':
                 $this->articlefilter_groupbypage = $value;
-            break;
+                break;
         }
     }
 
@@ -305,27 +302,27 @@ class Articlefilter extends \Controller
         {
             case 'no_filter':
                 return ($this->no_filter);
-            break;
+                break;
 
             case 'hasfilter':
                 return ($this->hasFilter);
-            break;
+                break;
 
             case 'resultcount':
                 return ($this->resultCount);
-            break;
+                break;
 
             case 'results':
                 return ($this->results);
-            break;
+                break;
 
             case 'searchstrings':
                 return ($this->searchFilterText);
-            break;
+                break;
 
             case 'groupbypage':
                 return ($this->articlefilter_groupbypage);
-            break;
+                break;
         }
     }
 }
