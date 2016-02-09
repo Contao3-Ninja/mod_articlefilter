@@ -2,6 +2,8 @@
 
 namespace ContaoArticlefilter\Modules;
 
+use ContaoArticlefilter\Articlefilter;
+
 /**
  * Class ModuleFilterForm based on version of Stefan Gandlau <stefan@gandlau.net>
  *
