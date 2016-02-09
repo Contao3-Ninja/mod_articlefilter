@@ -44,28 +44,31 @@ class ModuleArticleFilter extends \Module
         $arrGroups   = deserialize($this->articlefilter_groups);
         $arrSelected = \Input::get('articlefilter_filter');
         $res         = $this->Database->prepare('SELECT * from tl_articlefilter_groups where id IN ('.implode(',',
-                $arrGroups).') AND published=1 ORDER BY sortindex')->execute();
+                $arrGroups).') AND published = 1 ORDER BY FIELD(id, '.implode(',',$arrGroups).')')->execute();
+
         if ($res->numRows > 0)
         {
-            $arrBoxes = array();
+            $arrBoxes = [];
             $this->Template->hasGroups = true;
             $id = 0;
-            while ($res->next()) {
+            while ($res->next())
+            {
                 $arrCriteria = $this->loadCriteriaByGroup($res->id);
                 if (is_array($arrCriteria))
                 {
                     $id++;
-                    $objCB = new \FrontendTemplate($res->template);
-                    $objCB->items = $arrCriteria;
-                    $objCB->title = $res->title;
-                    $objCB->name = $res->id;
+                    $objCB           = new \FrontendTemplate($res->template);
+                    $objCB->items    = $arrCriteria;
+                    $objCB->title    = $res->title;
+                    $objCB->name     = $res->id;
                     $objCB->selected = $arrSelected[$res->id];
-                    $objCB->id = $id;
-                    $arrBoxes[] = $objCB->parse();
+                    $objCB->id       = $id;
+                    $arrBoxes[]      = $objCB->parse();
                 }
             }
             /* jumpTo Page */
             $arrJump = $this->Database->prepare('SELECT id, alias from tl_page where id=?')->execute($this->jumpTo)->fetchAssoc();
+
             $this->Template->criterias         = implode("\n", $arrBoxes);
             $this->Template->href              = $this->generateFrontendUrl($arrJump);
             $this->Template->lblSubmit         = $GLOBALS['TL_LANG']['articlefilter']['lblSubmit'];

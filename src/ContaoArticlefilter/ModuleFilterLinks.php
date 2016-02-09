@@ -53,7 +53,7 @@ class ModuleFilterLinks extends \Module
         $arrFilterIDs = array_keys($arrValidFilter);
         $arrGroups    = [];
         $res = $this->Database->prepare('SELECT t1.*, t2.title grp, t2.id gid from tl_articlefilter_criteria t1, tl_articlefilter_groups t2 WHERE t1.id IN ('.implode(',',
-                $arrFilterIDs).') AND t1.pid=t2.id AND t1.published=? ORDER BY t2.sortindex, t1.sorting')->execute(1);
+                $arrFilterIDs).') AND t1.pid=t2.id AND t1.published=? ORDER BY t2.title, t1.sorting')->execute(1);
         while ($res->next())
         {
             if (!is_array($arrGroups[$res->grp]))

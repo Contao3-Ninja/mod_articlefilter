@@ -14,7 +14,7 @@ $GLOBALS['TL_DCA']['tl_articlefilter_groups'] = [
 	'list' => [
 		'sorting' => [
 			'mode'                    => 1,
-			'fields'                  => ['sortindex'],
+			'fields'                  => ['title'],
 		  	'flag'                    => 11,
 			'panelLayout'             => 'search,limit'
 		],
@@ -58,7 +58,7 @@ $GLOBALS['TL_DCA']['tl_articlefilter_groups'] = [
 	],
 
 	// Palettes
-	'palettes' => ['default' => 'title,template,sortindex;published'],
+	'palettes' => ['default' => 'title,template;published'],
 
 	// Fields
 	'fields' => [
@@ -81,13 +81,6 @@ $GLOBALS['TL_DCA']['tl_articlefilter_groups'] = [
 			'inputType'               => 'select',
 			'options'                 => $this->getTemplateGroup('mod_articlefilter_box_'),
 			'sql'                     => "varchar(255) NOT NULL default ''"
-		],
-		'sortindex' => [
-			'label'                   => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['sortindex'],
-			'inputType'               => 'text',
-			'eval'                    => ['rgxp' => 'digit', 'mandatory' => true],
-			'default'                 => 10,
-			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		],
 		'published' => [
 			'label'                   => &$GLOBALS['TL_LANG']['tl_articlefilter_groups']['published'],

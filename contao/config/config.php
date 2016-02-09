@@ -11,4 +11,3 @@ $GLOBALS['FE_MOD']['application']['articlefilter']            = '\ContaoArticleF
 $GLOBALS['FE_MOD']['application']['articlefilter_links']      = '\ContaoArticleFilter\ModuleFilterLinks';
 $GLOBALS['FE_MOD']['application']['articlefilter_results']    = '\ContaoArticleFilter\ModuleFilterResults';
 
-$GLOBALS['TL_CTE']['includes']['mod_articlefilter_selected']  = '\ContaoArticleFilter\ContentSelectedFilter';
