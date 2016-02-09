@@ -3,19 +3,19 @@
 namespace ContaoArticlefilter\Modules;
 
 /**
- * Class ModuleArticleFilter based on version of Stefan Gandlau <stefan@gandlau.net>
+ * Class ModuleFilterForm based on version of Stefan Gandlau <stefan@gandlau.net>
  *
  */
-class ModuleArticleFilter extends \Module
+class ModuleFilterForm extends \Module
 {
-    protected $strTemplate = 'mod_articlefilter';
+    protected $strTemplate = 'mod_articlefilter_form';
 
     public function generate()
     {
         if (TL_MODE == 'BE')
         {
             $objTemplate           = new \BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### ArticleFilter ###';
+            $objTemplate->wildcard = '### Article Filter - Form ###';
             return $objTemplate->parse();
         }
 

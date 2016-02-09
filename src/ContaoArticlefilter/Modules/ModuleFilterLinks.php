@@ -17,7 +17,7 @@ class ModuleFilterLinks extends \Module
         if (TL_MODE == 'BE')
         {
             $objTemplate           = new \BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### Article Filter (Links) ###';
+            $objTemplate->wildcard = '### Article Filter - Links ###';
             return $objTemplate->parse();
         }
         $this->arrJump   = $this->Database->prepare('SELECT id, alias from tl_page where id=?')->execute($this->jumpTo)->fetchAssoc();

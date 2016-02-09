@@ -15,7 +15,7 @@ class ModuleFilterResults extends \Module
         if (TL_MODE == 'BE')
         {
             $objTemplate           = new \BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### Filter Results ###';
+            $objTemplate->wildcard = '### Article Filter - Results ###';
             return $objTemplate->parse();
         }
         return parent::generate();

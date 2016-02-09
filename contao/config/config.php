@@ -7,7 +7,7 @@ array_insert($GLOBALS['BE_MOD']['content'], 1, [
     ]
 ]);
 
-$GLOBALS['FE_MOD']['application']['articlefilter']            = '\ContaoArticleFilter\Modules\ModuleArticleFilter';
+$GLOBALS['FE_MOD']['application']['articlefilter_form']       = '\ContaoArticleFilter\Modules\ModuleFilterForm';
 $GLOBALS['FE_MOD']['application']['articlefilter_links']      = '\ContaoArticleFilter\Modules\ModuleFilterLinks';
 $GLOBALS['FE_MOD']['application']['articlefilter_results']    = '\ContaoArticleFilter\Modules\ModuleFilterResults';
 
