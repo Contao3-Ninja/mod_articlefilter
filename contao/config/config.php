@@ -3,7 +3,7 @@
 array_insert($GLOBALS['BE_MOD']['content'], 1, [
     'articlefilter' => [
         'icon'           => 'system/modules/articlefilter/assets/icon.png',
-        'tables'         => [['tl_articlefilter_groups', 'tl_articlefilter_criteria']]
+        'tables'         => ['tl_articlefilter_groups', 'tl_articlefilter_criteria']
     ]
 ]);
 

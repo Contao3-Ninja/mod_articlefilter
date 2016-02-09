@@ -97,4 +97,3 @@ $GLOBALS['TL_DCA']['tl_articlefilter_groups'] = [
 		]
 	]
 ];
-
