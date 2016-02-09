@@ -28,7 +28,7 @@ $GLOBALS['TL_DCA']['tl_article']['fields']['articlefilter_enable'] = [
 $GLOBALS['TL_DCA']['tl_article']['fields']['articlefilter_criteria'] = [
     'label'               => &$GLOBALS['TL_LANG']['tl_article']['articlefilter_criteria'],
     'inputType'           => 'checkbox',
-    'options_callback'    => ['tl_article_af', 'loadAFOptions'],
+    'options_callback'    => ['tl_article_articlefilter', 'loadOptions'],
     'eval'                => ['multiple' => true],
     'sql'                 => "text NULL"
 ];
@@ -42,11 +42,11 @@ $GLOBALS['TL_DCA']['tl_article']['palettes']['default']                 = str_re
     'teaser;', 'teaser,addImage;', $GLOBALS['TL_DCA']['tl_article']['palettes']['default'])
     .';{title_articlefilter},articlefilter_enable';
 
-class tl_article_af extends Backend
+class tl_article_articlefilter extends Backend
 {
-    public function loadAFOptions()
+    public function loadOptions()
     {
-        $res = $this->Database->prepare('SELECT * FROM tl_articlefilter_groups ORDER BY sorting')->execute();
+        $res = $this->Database->prepare('SELECT * FROM tl_articlefilter_groups ORDER BY title')->execute();
         $arrRes = [];
         if ($res->numRows == 0)
         {
