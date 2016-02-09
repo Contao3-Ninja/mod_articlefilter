@@ -170,9 +170,8 @@ class Articlefilter extends \Controller
             $objFile = \FilesModel::findByUuid($row['singleSRC']);
             if ($objFile !== null)
             {
-                $arr                   = [];
-                $objTemp               = new \stdClass();
-                $arrEntry['imagePath'] = $objFile->path;
+                $objTemp = new \stdClass();
+                $arr     = ['singleSRC' => $objFile->path];
 
                 if ($this->imgSize != '')
                 {
@@ -182,9 +181,11 @@ class Articlefilter extends \Controller
                         $arr['size'] = $this->imgSize;
                     }
                 }
-                $arr['singleSRC'] = $objFile->path;
+
                 $this->addImageToTemplate($objTemp, $arr);
-                var_dump($objTemp);
+
+                $arrEntry['imagePath'] = $objFile->path;
+                $arrEntry['picture']   = $objTemp->picture;
             }
         }
         return $arrEntry;
