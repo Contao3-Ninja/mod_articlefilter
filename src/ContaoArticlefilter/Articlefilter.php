@@ -32,8 +32,12 @@ class Articlefilter extends \Controller
     protected $resultCount = 0;
     protected $results = [];
 
-    public function __construct($rootid = false)
+    protected $imgSize = null;
+
+    public function __construct($rootid = false, $imgSize = null)
     {
+        $this->imgSize = $imgSize;
+
         $this->Import('Database');
         $this->Import('Input');
         if (\Input::get('isAjax') == 1)
@@ -160,13 +164,27 @@ class Articlefilter extends \Controller
         {
             $arrEntry['href'] = $this->generateFrontendUrl($objPid->row(), '/articles/'.((!\Config::get('disableAlias') && strlen($row['alias'])) ? $row['alias'] : $row['id']));
         }
-        
+
         if ($row['addImage'] === '1' && strlen($row['singleSRC']) > 0)
         {
             $objFile = \FilesModel::findByUuid($row['singleSRC']);
             if ($objFile !== null)
             {
+                $arr                   = [];
+                $objTemp               = new \stdClass();
                 $arrEntry['imagePath'] = $objFile->path;
+
+                if ($this->imgSize != '')
+                {
+                    $size = deserialize($this->imgSize);
+                    if ($size[0] > 0 || $size[1] > 0 || is_numeric($size[2]))
+                    {
+                        $arr['size'] = $this->imgSize;
+                    }
+                }
+                $arr['singleSRC'] = $objFile->path;
+                $this->addImageToTemplate($objTemp, $arr);
+                var_dump($objTemp);
             }
         }
         return $arrEntry;
