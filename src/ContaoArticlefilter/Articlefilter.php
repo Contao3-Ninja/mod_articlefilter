@@ -2,8 +2,6 @@
 
 namespace ContaoArticlefilter;
 
-
-
 /**
  * Class Articlefilter based on version of Stefan Gandlau <stefan@gandlau.net>
  *
@@ -68,21 +66,11 @@ class Articlefilter extends \Controller
                     {
                         $arrArticles[$res->ptitle] = [];
                     }
-                    $arrArticles[$res->ptitle][] = [
-                        'title'   => $res->title,
-                        'teaser'  => $res->teaser,
-                        'href'    => $this->generatePageLink($res->pid, $res->alias),
-                        'image'   => $this->prepareArticleImage($row, $this->generatePageLink($res->pid, $res->alias))
-                    ];
+                    $arrArticles[$res->ptitle][] = $this->createEntry($row);
                 }
                 else
                 {
-                    $arrArticles[] = [
-                        'title'   => $res->title,
-                        'teaser'  => $res->teaser,
-                        'href'    => $this->generatePageLink($res->pid, $res->alias),
-                        'image'   => $this->prepareArticleImage($row, $this->generatePageLink($res->pid, $res->alias))
-                    ];
+                    $arrArticles[] = $this->createEntry($row);
                 }
             }
 
@@ -167,32 +155,16 @@ class Articlefilter extends \Controller
 
     private function createEntry($row)
     {
-        $arr = [
-            'title'   => $row['title'],
-            'teaser'  => $row['teaser'],
-            'href'    => $this->generatePageLink($row['pid'], $row['alias']),
-            'image'    => $this->prepareArticleImage($row, $this->generatePageLink($row['pid'], $row['alias']))
-        ];
-        return $arr;
-    }
+        $arrEntry         = $row;
+        $arrEntry['href'] = $this->generatePageLink($row['pid'], $row['alias']);
 
-    protected function prepareArticleImage($arrRow, $href)
-    {
-
-        if ($arrRow['addImage'] && strlen($arrRow['singleSRC']) && file_exists(TL_ROOT.'/'.$arrRow['singleSRC'])) {
-            $arrSize = deserialize($arrRow['size']);
-            $arrMargin = deserialize($arrRow['imagemargin']);
-            $floating = $arrRow['floating'];
-            $alt = $arrRow['alt'];
-            $caption = $arrRow['caption'];
-            $fullsize = $arrRow['fullsize'];
-
-            $thumb = $this->getImage($arrRow['singleSRC'], $arrSize[0], $arrSize[1], $arrSize[2]);
-            $strImage = sprintf('<img src="%s" alt="%s" title="%s"/>', $thumb, $alt, $caption);
-            $strImage = sprintf('<a href="%s">%s</a>', $href, $strImage);
-
-            return ($strImage);
+        if ($row['addImage'] && $row['singleSRC'])
+        {
+            $arrEntry['image'] = 'TODO TODO TODO';
         }
+
+
+        return $arrEntry;
     }
 
     protected function prepareFilter($rootid)
