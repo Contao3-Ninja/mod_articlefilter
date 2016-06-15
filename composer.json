@@ -1,6 +1,6 @@
 {
     "name": "martin-kozianka/contao-articlefilter",
-    "description": "Extension for contao",
+    "description": "Artikelfilter Extension von Fruitmedia, modifiziert von martin-kozianka und olli",
     "keywords": [
         "contao",
         "articlefilter",
@@ -16,7 +16,7 @@
             "homepage": "http://kozianka.de",
             "role": "Developer"
         }
-    ],  
+    ],
     "support": {
         "email": "martin@kozianka.de",
         "issues": "https://github.com/kozi/contao-articlefilter/issues",
