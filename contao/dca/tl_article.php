@@ -39,8 +39,9 @@ $GLOBALS['TL_DCA']['tl_article']['subpalettes']['addImage']             = 'singl
 $GLOBALS['TL_DCA']['tl_article']['subpalettes']['articlefilter_enable'] = 'articlefilter_criteria';
 
 $GLOBALS['TL_DCA']['tl_article']['palettes']['default']                 = str_replace(
-    'teaser;', 'teaser,addImage;', $GLOBALS['TL_DCA']['tl_article']['palettes']['default'])
-    .';{title_articlefilter},articlefilter_enable';
+    'teaser;',
+    'teaser,addImage;',
+    $GLOBALS['TL_DCA']['tl_article']['palettes']['default']).'{title_articlefilter},articlefilter_enable';
 
 class tl_article_articlefilter extends Backend
 {
