@@ -39,7 +39,9 @@
           <a href="<?php print $item['href']; ?>"><?php print $item['title']; ?></a>
           <div class="articleTeaser">
             <?php if($item['picture']): ?>
-              <div class="articleImage"><?php $this->insert('picture_default', $item['picture']); ?></div>
+              <div class="articleImage">
+                <a href="<?php print $item['href']; ?>"><?php $this->insert('picture_default', $item['picture']); ?></a>
+              </div>
             <?php endif; ?>
             <?php print $item['teaser']; ?>
           </div>
