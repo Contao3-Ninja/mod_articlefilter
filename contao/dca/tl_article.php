@@ -41,7 +41,7 @@ $GLOBALS['TL_DCA']['tl_article']['subpalettes']['articlefilter_enable'] = 'artic
 $GLOBALS['TL_DCA']['tl_article']['palettes']['default']                 = str_replace(
     'teaser;',
     'teaser,addImage;',
-    $GLOBALS['TL_DCA']['tl_article']['palettes']['default']).'{title_articlefilter},articlefilter_enable';
+    $GLOBALS['TL_DCA']['tl_article']['palettes']['default']).';{title_articlefilter},articlefilter_enable';
 
 class tl_article_articlefilter extends Backend
 {
