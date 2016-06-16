@@ -43,8 +43,8 @@
 		  <?php $item['href'] = substr($item['href'],0,strpos($item['href'],'.html')+5); ?>
           <a href="<?php print $item['href']; ?>"><?php print $item['title']; ?></a>
           <div class="articleTeaser">
-            <?php if($item['image']): ?>
-              <div class="articleImage"><?php print $item['image']; ?></div>
+            <?php if($item['picture']): ?>
+              <div class="articleImage"><?php $this->insert('picture_default', $item['picture']); ?></div>
             <?php endif; ?>
             <?php print $item['teaser']; ?>
           </div>
