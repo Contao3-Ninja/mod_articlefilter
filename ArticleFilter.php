@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php 
 
 /**
  * TYPOlight webCMS
@@ -81,22 +81,26 @@
           return;
         }
         $arrArticles = array();
-        while($res->next()) {
+        while($res->next()) 
+        {
           $row = $res->row();
+          $href = $this->generatePageLink($res->pid, $res->alias);
           if($this->af_groupbypage) {
           	if(!is_array($arrArticles[$res->ptitle])) $arrArticles[$res->ptitle] = array();
           	$arrArticles[$res->ptitle][] = array(
-	            'title' => $res->title,
-	            'teaser' => $res->teaser,
-	            'href' => $this->generatePageLink($res->pid, $res->alias),
-	            'image' => $this->prepareArticleImage($row, $this->generatePageLink($res->pid, $res->alias))
+	            'title'   => $res->title,
+	            'teaser'  => $res->teaser,
+	            'href'    => $href,
+	            'image'   => $this->prepareArticleImage($row, $href),
+          	    'picture' => $this->prepareArticlePicture($row, $href)
 	          );
           } else {
 	          $arrArticles[] = array(
-	            'title' => $res->title,
-	            'teaser' => $res->teaser,
-	            'href' => $this->generatePageLink($res->pid, $res->alias),
-	            'image' => $this->prepareArticleImage($row, $this->generatePageLink($res->pid, $res->alias))
+	            'title'   => $res->title,
+	            'teaser'  => $res->teaser,
+	            'href'    => $href,
+	            'image'   => $this->prepareArticleImage($row, $href),
+          	    'picture' => $this->prepareArticlePicture($row, $href)
 	          );
           }
         }
@@ -116,26 +120,32 @@
         return;
       }
       $arrArticles = array();
-      while($res->next()) {
+      while($res->next()) 
+      {
         $row = $res->row();
         $ac = deserialize($res->af_criteria);
         if(!is_array($ac)) continue;
-        if($this->afstype == 'matchAny') {
-          if(count(array_intersect($ac, $this->searchFilterCriteria))) {
+        if($this->afstype == 'matchAny') 
+        {
+          if(count(array_intersect($ac, $this->searchFilterCriteria))) 
+          {
+              $href = $this->generatePageLink($res->pid, $res->alias);
           	if($this->af_groupbypage) {
           		if(!is_array($arrArticles[$res->ptitle])) $arrArticles[$res->ptitle] = array();
 	          	$arrArticles[$res->ptitle][] = array(
-	              'title' => $res->title,
-	              'teaser' => $res->teaser,
-	              'href' => $this->generatePageLink($res->pid, $res->alias),
-	              'image' => $this->prepareArticleImage($row, $this->generatePageLink($res->pid, $res->alias))
+	              'title'   => $res->title,
+	              'teaser'  => $res->teaser,
+	              'href'    => $href,
+	              'image'   => $this->prepareArticleImage($row, $href),
+          	      'picture' => $this->prepareArticlePicture($row, $href)
 	            );
           	} else {
 	            $arrArticles[] = array(
-	              'title' => $res->title,
-	              'teaser' => $res->teaser,
-	              'href' => $this->generatePageLink($res->pid, $res->alias),
-	              'image' => $this->prepareArticleImage($row, $this->generatePageLink($res->pid, $res->alias))
+	              'title'   => $res->title,
+	              'teaser'  => $res->teaser,
+	              'href'    => $href,
+	              'image'   => $this->prepareArticleImage($row, $href),
+          	      'picture' => $this->prepareArticlePicture($row, $href)
 	            );
           	}
           }
@@ -146,20 +156,23 @@
               $allMatch = false;
                 
           if($allMatch) {
+              $href = $this->generatePageLink($res->pid, $res->alias);
           	if($this->af_groupbypage) {
           		if(!is_array($arrArticles[$res->ptitle])) $arrArticles[$res->ptitle] = array();
 	            $arrArticles[$res->ptitle][] = array(
-	              'title' => $res->title,
-	              'teaser' => $res->teaser,
-	              'href' => $this->generatePageLink($res->pid, $res->alias),
-	              'image' => $this->prepareArticleImage($row, $this->generatePageLink($res->pid, $res->alias))
+	              'title'   => $res->title,
+	              'teaser'  => $res->teaser,
+	              'href'    => $href,
+	              'image'   => $this->prepareArticleImage($row, $href),
+          	      'picture' => $this->prepareArticlePicture($row, $href)
 	            );
           	} else {
           		$arrArticles[] = array(
-	              'title' => $res->title,
-	              'teaser' => $res->teaser,
-	              'href' => $this->generatePageLink($res->pid, $res->alias),
-	              'image' => $this->prepareArticleImage($row, $this->generatePageLink($res->pid, $res->alias))
+	              'title'   => $res->title,
+	              'teaser'  => $res->teaser,
+	              'href'    => $href,
+	              'image'   => $this->prepareArticleImage($row, $href),
+          	      'picture' => $this->prepareArticlePicture($row, $href)
 	            );
           	}              
           }
@@ -172,22 +185,48 @@
       
     }
   
-    protected function prepareArticleImage($arrRow, $href) {
-      
-      if($arrRow['addImage'] && strlen($arrRow['singleSRC']) && file_exists(TL_ROOT .'/'. $arrRow['singleSRC'])) {
-        $arrSize = deserialize($arrRow['size']);
-        $arrMargin = deserialize($arrRow['imagemargin']);
-        $floating = $arrRow['floating'];
-        $alt = $arrRow['alt'];
-        $caption = $arrRow['caption'];
-        $fullsize = $arrRow['fullsize'];
-        
-        $thumb = $this->getImage($arrRow['singleSRC'], $arrSize[0], $arrSize[1], $arrSize[2]);
-        $strImage = sprintf('<img src="%s" alt="%s" title="%s"/>', $thumb, $alt, $caption);
-        $strImage = sprintf('<a href="%s">%s</a>', $href, $strImage);
-        return($strImage);
-      }
+    protected function prepareArticleImage($arrRow, $href) 
+    {
+        if ($arrRow['addImage'] && strlen($arrRow['singleSRC'])>0) 
+        {
+            $objFile = \FilesModel::findByPk($arrRow['singleSRC']);
+          
+            $arrSize = deserialize($arrRow['size']);
+            $arrMargin = deserialize($arrRow['imagemargin']);
+            $floating = $arrRow['floating'];
+            $alt = $arrRow['alt'];
+            $caption = $arrRow['caption'];
+            $fullsize = $arrRow['fullsize'];
+            
+            $thumb = \Image::get($this->urlEncode($objFile->path), $arrSize[0], $arrSize[1], $arrSize[2]);
+            $strImage = sprintf('<img src="%s" alt="%s" title="%s"/>', $thumb, $alt, $caption);
+            $strImage = sprintf('<a href="%s">%s</a>', $href, $strImage);
+            return($strImage);
+        }
     }
+    
+    protected function prepareArticlePicture($arrRow, $href) 
+    {
+        if ($arrRow['addImage'] && strlen($arrRow['singleSRC'])>0) 
+        {
+            $objFile = \FilesModel::findByPk($arrRow['singleSRC']);
+            
+            $arrSize   = deserialize($arrRow['size']);
+            $arrMargin = deserialize($arrRow['imagemargin']);
+            $floating  = $arrRow['floating'];
+            $alt       = $arrRow['alt'];
+            $caption   = $arrRow['caption'];
+            $fullsize  = $arrRow['fullsize'];
+    
+            $picture = \Picture::create($this->urlEncode($objFile->path), array($arrSize[0], $arrSize[1], $arrSize[2]))->getTemplateData();
+            $picture['alt']   = specialchars(ampersand($alt));
+            $picture['title'] = specialchars(ampersand($caption));
+            
+            // ins template verlagert $strImage = sprintf('<a href="%s">%s</a>', $href, $strImage);
+            return($picture);
+        }
+    }
+    
     protected function prepareFilter($rootid) {
       $this->filterGroups = $this->readFilterGroups();
       $this->filterCriteria = $this->readFilterCriteria();
